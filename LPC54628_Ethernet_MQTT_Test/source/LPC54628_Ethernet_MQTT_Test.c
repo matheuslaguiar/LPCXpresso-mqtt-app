@@ -62,7 +62,11 @@ int main(void) {
     LED2_INIT(LOGIC_LED_OFF);
     LED3_INIT(LOGIC_LED_OFF);
 
-    usr_mqtt_init();
+    if(usr_eth_init() != 0 || usr_mqtt_init() != 0) {
+    	LED1_OFF();
+		LED2_ON();
+    }
+
     while(1) {
     	LED3_TOGGLE();
     	SDK_DelayAtLeastUs(500000, 72000000);
